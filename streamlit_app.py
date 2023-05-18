@@ -24,5 +24,5 @@ google_file = st.file_uploader('Upload a CSV', type = 'csv')
 google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
 
 if google_file is not None:
-    inputCSV = google_file.read()
+    inputCSV = google_file.read().decode("utf-8-sig").encode("utf-8")
     st.write(inputCSV)
