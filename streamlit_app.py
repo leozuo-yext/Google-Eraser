@@ -22,12 +22,20 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 ### Please Pick An Operation
 """
-google_operation = st.selectbox(['GET','POST','PATCH','DELETE'])
+google_operation = st.selectbox(options = ['GET','POST','PATCH','DELETE'])
 
 """
 ### Please Pick a Google Endpoint
 """
-google_endpoint = st.selectbox(['GET','POST','PATCH','DELETE'])
+google_endpoint = st.selectbox(options = ['Business Info','Place Actions','Attributes','Media'])
+if google_endpoint == 'Business Info':
+    """
+    ### Please enter the updateMasks, seperated by commas
+    """
+    google_updateMasks = st.text_input()
+
+
+
 """
 ### Please Enter the Google Access Token
 """
