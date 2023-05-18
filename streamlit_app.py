@@ -22,22 +22,22 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 ### Please Pick An Operation
 """
-google_operation = st.selectbox('What Operation', ['GET','POST','PATCH','DELETE'])
+google_operation = st.selectbox(['GET','POST','PATCH','DELETE'])
 
 """
 ### Please Pick a Google Endpoint
 """
-google_endpoint = st.selectbox('Which Endpoint', ['GET','POST','PATCH','DELETE'])
+google_endpoint = st.selectbox(['GET','POST','PATCH','DELETE'])
 """
 ### Please Enter the Google Access Token
 """
-token = st.text_input('Please enter the Google Access Token')
+token = st.text_input()
 headers = {"Authorization" : "Bearer " + token}
 
 """
 ### Please Upload the Google Entities
 """
-google_file = st.file_uploader('Upload a CSV', type = 'csv')
+google_file = st.file_uploader(type = 'csv')
 
 
 
