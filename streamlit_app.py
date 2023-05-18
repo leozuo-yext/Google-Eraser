@@ -23,14 +23,14 @@ In the meantime, below is an example of what you can do with just a few lines of
 google_file = st.file_uploader('Upload a CSV', type = 'csv')
 google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
 
-prep = []
 headers = {"Authorization" : "Bearer " + 'token'}
 
 
 
-if google_file is not None:
-    inputCSV = google_file.read().decode("utf-8-sig").encode("utf-8")
-    #st.write(inputCSV)
+
+def prepGoogleEraser(file):
+    prep = []
+    inputCSV = file.read().decode("utf-8-sig").encode("utf-8")
     for r in inputCSV:
         st.write(r)
         info = {}
@@ -39,7 +39,12 @@ if google_file is not None:
         info["url"] = "https://mybusinessplaceactions.googleapis.com/v1/locations/%s/placeActionLinks" % r["GBP Location ID"][1:] 
         #info["payload"] = payload.replace("PAYLOAD_URL",r["appointment_url"])
         prep.append(info)
+        st.write(prep)
+        return prep
 
 
-st.write(prep)
-        
+if google_file is not None:
+    prepGoogleEraser(google_file)
+
+
+
