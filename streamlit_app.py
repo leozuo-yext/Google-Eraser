@@ -26,10 +26,13 @@ google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
 prep = []
 headers = {"Authorization" : "Bearer " + 'token'}
 
+
+
 if google_file is not None:
     inputCSV = google_file.read().decode("utf-8-sig").encode("utf-8")
-    st.write(inputCSV)
+    #st.write(inputCSV)
     for r in inputCSV:
+        st.write(r)
         info = {}
         info["location"] = r["Yext ID"]
         #info["appointment_url"] = r["appointment_url"]
