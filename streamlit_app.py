@@ -43,7 +43,7 @@ def prepGoogleEraser(file):
         #info["payload"] = payload.replace("PAYLOAD_URL",r["appointment_url"])
         prep.append(info)
         st.write(prep)
-        return prep
+    return prep
 
 
 if google_file is not None:
