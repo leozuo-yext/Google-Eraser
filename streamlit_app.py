@@ -30,7 +30,8 @@ headers = {"Authorization" : "Bearer " + 'token'}
 
 def prepGoogleEraser(file):
     prep = []
-    inputCSV = csv.DictReader(file).read().decode("utf-8-sig").encode("utf-8")
+    inputCSV = csv.DictReader(file)
+    testinputCSV = csv.DictReader(file).read().decode("utf-8-sig").encode("utf-8")
     for r in inputCSV:
         st.write(r)
         info = {}
