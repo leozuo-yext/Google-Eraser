@@ -19,8 +19,9 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 
-with st.echo(code_location='below'):
-    google_file = st.file_uploader('Upload a CSV')
-    google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
-    print(google_file)
-    st.write(google_file)
+
+google_file = st.file_uploader('Upload a CSV')
+google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
+with open(google_file, 'r',encoding = 'utf-8-sig') as inputFile:
+    inputCSV = csv.DictReader(inputFile)
+    st.write(inputCSV)
