@@ -34,7 +34,7 @@ def prepGoogleEraser(file):
     inputCSV['Yext ID'] = inputCSV['Yext ID'].astype(str)
 
     st.write(inputCSV)
-    for r in inputCSV:
+    for row, r in inputCSV.iterrows():
         st.write(r)
         info = {}
         info["location"] = r["Yext ID"]
