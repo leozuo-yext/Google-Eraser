@@ -21,7 +21,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 
 
 google_file = st.file_uploader('Upload a CSV')
-st.write(inputCSV)
+st.write(google_file)
 google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
 
 inputCSV = csv.DictReader(google_file)
