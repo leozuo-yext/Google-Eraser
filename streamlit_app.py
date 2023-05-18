@@ -31,7 +31,7 @@ headers = {"Authorization" : "Bearer " + 'token'}
 def prepGoogleEraser(file):
     prep = []
     #inputCSV = csv.DictReader(file)
-    inputCSV = pd.read_csv(uploaded_file, encoding = 'utf-8')
+    inputCSV = pd.read_csv(file, encoding = 'utf-8')
     inputCSV['Yext ID'] = inputCSV['Yext ID'].astype(int)
     st.write(inputCSV)
     for r in inputCSV:
