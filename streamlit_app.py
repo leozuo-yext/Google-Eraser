@@ -45,7 +45,7 @@ headers = {"Authorization" : "Bearer " + token}
 """
 ### Please Upload the Google Entities
 """
-google_file = st.file_uploader(type = 'csv')
+google_file = st.file_uploader('Google Prep File Upload', type = 'csv')
 
 
 
