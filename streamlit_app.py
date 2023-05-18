@@ -23,5 +23,6 @@ In the meantime, below is an example of what you can do with just a few lines of
 google_file = st.file_uploader('Upload a CSV')
 google_operation = st.selectbox('Pick one', ['GET','POST','PATCH','DELETE'])
 
-inputCSV = google_file.read()
-st.write(inputCSV)
+if uploaded_file is not None:
+    inputCSV = google_file.read()
+    st.write(inputCSV)
