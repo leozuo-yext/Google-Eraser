@@ -32,10 +32,7 @@ def prepGoogleEraser(file):
     prep = []
     inputCSV = pd.read_csv(file, encoding = 'utf-8')
     inputCSV['Yext ID'] = inputCSV['Yext ID'].astype(str)
-
-    st.write(inputCSV)
     for row, r in inputCSV.iterrows():
-        st.write(r)
         info = {}
         info["location"] = r["Yext ID"]
         #info["appointment_url"] = r["appointment_url"]
