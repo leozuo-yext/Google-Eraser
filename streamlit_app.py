@@ -42,7 +42,6 @@ def prepGoogleEraser(file):
         info["url"] = "https://mybusinessplaceactions.googleapis.com/v1/locations/%s/placeActionLinks" % r["GBP Location ID"][1:] 
         #info["payload"] = payload.replace("PAYLOAD_URL",r["appointment_url"])
         prep.append(info)
-    st.write(prep)
     return prep
 
 
