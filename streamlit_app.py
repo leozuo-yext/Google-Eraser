@@ -19,6 +19,8 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 
+
+
 """
 ### Please enter the updateMasks, seperated by commas
 """
@@ -50,6 +52,7 @@ def prepGoogleEraser(file):
 
 
 def deleteOperation(prep):
+    my_bar = st.progress(0, text= "Operation in progress. Please wait")
     payload = "{}"
     size = len(prep)
     remainder = int(size / 100)
@@ -59,6 +62,7 @@ def deleteOperation(prep):
         #st.write(str(count) + " " + str(size) + " " + str(count % remainder))
         #st.write(r.status_code)
         if count % remainder == remainder - 1:
+            my_bar.progress(percent_complete + 1, text="Operation in progress. Please wait")
             st.write("{0:.000%}".format(count / size) + " completed")
         if r.status_code == 400:
             st.write("Bad Request")
