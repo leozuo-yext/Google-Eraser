@@ -52,12 +52,12 @@ def prepGoogleEraser(file):
 def deleteOperation(prep):
     payload = "{}"
     size = len(prep)
-    remainder = int(size / 1000)
+    remainder = int(size / 100)
     for count, row in enumerate(prep):
         r = requests.patch(row["url"], headers=headers, data=payload)
-        print("Delete Status: " + str(r.status_code))
-        st.write(str(count) + " " + str(size) + " " + str(count % remainder))
-        st.write(r.status_code)
+        #print("Delete Status: " + str(r.status_code))
+        #st.write(str(count) + " " + str(size) + " " + str(count % remainder))
+        #st.write(r.status_code)
         if count % remainder == remainder - 1:
             st.write("{0:.000%}".format(count / size) + " completed")
         if r.status_code == 400:
