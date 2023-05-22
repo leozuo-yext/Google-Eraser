@@ -59,7 +59,7 @@ def deleteOperation(prep):
             sys.exit("unauthenticated")
 
 
-if google_file is not None:
+if google_file is not None and token != "":
     results = prepGoogleEraser(google_file)
     st.write("Example Call")
     st.write("Removing Contents for " + results[0]['url'])
