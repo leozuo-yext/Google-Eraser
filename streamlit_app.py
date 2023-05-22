@@ -67,8 +67,8 @@ if google_file is not None and token != "":
     agreement_checkbox = st.checkbox('I agree')
     if agreement_checkbox:
         run_script = st.button('Run the script')
-    if run_script:
-        deleteOperation(results)
+            if run_script:
+                deleteOperation(results)
 else:
      st.write("Please input a Token!")
 
