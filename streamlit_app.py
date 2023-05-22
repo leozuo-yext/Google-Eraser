@@ -29,30 +29,36 @@ params_str = '?updateMask=' + str(st.text_input('Google Update Masks'))
 ### Please Enter the Google Access Token
 """
 token = str(st.text_input('Google Access Token'))
-headers = {"Authorization" : "Bearer " + token}
+headers = {"Authorization": "Bearer " + token}
 
 """
 ### Please Upload the Google Entities
 """
-google_file = st.file_uploader('Google Prep File Upload', type = 'csv')
+google_file = st.file_uploader('Google Prep File Upload', type='csv')
 
-   
+
 def prepGoogleEraser(file):
     prep = []
-    inputCSV = pd.read_csv(file, encoding = 'utf-8')
+    inputCSV = pd.read_csv(file, encoding='utf-8')
     inputCSV['Yext ID'] = inputCSV['Yext ID'].astype(str)
     for row, r in inputCSV.iterrows():
         info = {}
         info["Yext ID"] = r["Yext ID"]
-        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (str(r["GBP Location ID"])[1:] , params_str)
+        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (str(r["GBP Location ID"])[1:], params_str)
         prep.append(info)
     return prep
+
 
 def deleteOperation(prep):
     payload = "{}"
     for row in prep:
-        r = requests.patch(row["url"],headers=headers, data = payload)
+        r = requests.patch(row["url"], headers=headers, data=payload)
         print("Delete Status: " + str(r.status_code))
+        if r.status_code == 400:
+            st.write("Bad Request")
+            st.write("Reason: " + r.content)
+            sys.exit("unauthenticated")
+            st.stop()
         if r.status_code == 401:
             st.write("Expired Token")
             st.write("Last Yext Location: " + str(row["Yext ID"]))
@@ -72,23 +78,4 @@ if google_file is not None and token != "":
         if run_script:
             deleteOperation(results)
 else:
-     st.write("Please input a Token!")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    st.write("Please input a Token!")
