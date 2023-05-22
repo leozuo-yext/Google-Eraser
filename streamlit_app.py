@@ -56,8 +56,7 @@ def deleteOperation(prep):
     for count, row in enumerate(prep):
         r = requests.patch(row["url"], headers=headers, data=payload)
         print("Delete Status: " + str(r.status_code))
-        
-        st.write(str(count) + " " + str(size))
+        st.write(str(count) + " " + str(size) + " " + str(count % remainder))
         st.write(r.status_code)
         if count % remainder == remainder - 1:
             st.write("{0:.000%}".format(count / size) + " completed")
