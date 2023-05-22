@@ -35,9 +35,6 @@ headers = {"Authorization" : "Bearer " + token}
 ### Please Upload the Google Entities
 """
 google_file = st.file_uploader('Google Prep File Upload', type = 'csv')
-if google_file is not None:
-    st.write(google_file[0])
-
    
 def prepGoogleEraser(file):
     prep = []
