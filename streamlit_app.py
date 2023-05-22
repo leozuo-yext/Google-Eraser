@@ -28,7 +28,7 @@ params_str = '?updateMask=' + st.text_input('Google Update Masks')
 """
 ### Please Enter the Google Access Token
 """
-token = st.text_input('Google Access Token')
+token = str(st.text_input('Google Access Token'))
 headers = {"Authorization" : "Bearer " + token}
 
 """
