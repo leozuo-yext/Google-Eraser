@@ -59,8 +59,8 @@ def deleteOperation(prep):
         
         st.write(str(count) + " " + str(size))
         st.write(r.status_code)
-        if size % remainder >= remainder - 1:
-            st.write("{0:.0%}".format(count / size) + " completed")
+        if count % remainder == remainder - 1:
+            st.write("{0:.000%}".format(count / size) + " completed")
         if r.status_code == 400:
             st.write("Bad Request")
             st.write("Reason: " + r.text)
