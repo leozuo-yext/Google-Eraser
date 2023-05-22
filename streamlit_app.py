@@ -44,7 +44,7 @@ def prepGoogleEraser(file):
         info = {}
         info["location"] = r["Yext ID"]
         st.write(r["GBP Location ID"][1:])
-        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (r["GBP Location ID"][1:] , params_str)
+        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (str(r["GBP Location ID"])[1:] , params_str)
         prep.append(info)
     return prep
 
