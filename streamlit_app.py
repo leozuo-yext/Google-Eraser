@@ -67,24 +67,18 @@ def deleteOperation(prep):
     for row in prep:
         r = requests.patch(row["url"],headers=headers, data = payload)
         print("Delete Status: " + str(r.status_code))
-        data = json.loads(r.content)
-        #print(data['placeActionLinks'][0]["createTime"])
-        if len(data) == 0:
-            #add_req = requests.post(row["url"],headers = headers, data = row["payload"])
-            #print("Add Status: " + str(add_req.status_code))
-            pass
-        elif len(data['placeActionLinks']) > 0:
-            for link in data['placeActionLinks']:
-                placeActionLinks_name = link['name']
-                #print(placeActionLinks_name)
-                delete_req = requests.delete("https://mybusinessplaceactions.googleapis.com/v1/" + placeActionLinks_name, headers=headers)
-                #print("https://mybusinessplaceactions.googleapis.com/v1/" + placeActionLinks_name)
-                print("Delete Status: " + str(delete_req.status_code))
-
 
 if google_file is not None:
     results = prepGoogleEraser(google_file)
+    st.write("Example Call")
     st.write("Removing Contents for " + results[0]['url'])
+    st.write('Should I run the script?')
+    st.write('You are hereby claiming full responsbility of the outcome of the script, please select I agree to continue')
+    agreement_checkbox = st.checkbox('I agree')
+    if agreement_checkbox:
+        run_script = st.button('Run the script')
+        if run_script:
+            deleteOperation(results)
 
 
 
