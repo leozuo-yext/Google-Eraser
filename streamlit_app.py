@@ -65,7 +65,7 @@ def prepGoogleEraser(file):
 def deleteOperation(prep):
     payload = "{}"
     for row in prep:
-        r = requests.patch(row["url"],headers=headers, payload)
+        r = requests.patch(row["url"],headers=headers, data = payload)
         print("Delete Status: " + str(r.status_code))
         data = json.loads(r.content)
         #print(data['placeActionLinks'][0]["createTime"])
