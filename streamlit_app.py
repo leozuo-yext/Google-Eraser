@@ -43,6 +43,7 @@ def prepGoogleEraser(file):
     for row, r in inputCSV.iterrows():
         info = {}
         info["location"] = r["Yext ID"]
+        st.write(r["GBP Location ID"][1:])
         info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (r["GBP Location ID"][1:] , params_str)
         prep.append(info)
     return prep
