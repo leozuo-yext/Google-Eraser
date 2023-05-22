@@ -77,7 +77,7 @@ if google_file is not None and token != "":
         run_script = st.button('Run the script')
         if run_script:
             deleteOperation(results)
-else if token == "":
+elif token == "":
     st.write("Please input a Token!")
 
 
