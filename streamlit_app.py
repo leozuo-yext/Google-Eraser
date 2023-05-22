@@ -18,12 +18,6 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
-
-"""
-### Please Pick An Operation
-"""
-google_operation = st.selectbox('Google Operation', options = ['GET','POST','PATCH','DELETE'])
-
 """
 ### Please Pick a Google Endpoint
 """
@@ -32,8 +26,16 @@ if google_endpoint == 'Business Info':
     """
     ### Please enter the updateMasks, seperated by commas
     """
-    google_updateMasks = st.text_input('Google Update Masks')
+    params_str = '?updateMask=' + st.text_input('Google Update Masks')
 
+else:
+    params_str = ""
+
+
+"""
+### Please Pick An Operation
+"""
+google_operation = st.selectbox('Google Operation', options = ['GET','POST','PATCH','DELETE'])
 
 
 """
@@ -56,16 +58,51 @@ def prepGoogleEraser(file):
     for row, r in inputCSV.iterrows():
         info = {}
         info["location"] = r["Yext ID"]
-        #info["appointment_url"] = r["appointment_url"]
         info["url"] = "https://mybusinessplaceactions.googleapis.com/v1/locations/%s/placeActionLinks" % r["GBP Location ID"][1:] 
-        #info["payload"] = payload.replace("PAYLOAD_URL",r["appointment_url"])
+        try:
+            info["payload"] = r["payload"]
+        except:
+            pass
         prep.append(info)
     return prep
+
+def deleteOperation(prep):
+    for row in prep:
+        r = requests.get(row["url"],headers=headers)
+        print("GET Status: " + str(r.status_code))
+        data = json.loads(r.content)
+        #print(data['placeActionLinks'][0]["createTime"])
+        if len(data) == 0:
+            #add_req = requests.post(row["url"],headers = headers, data = row["payload"])
+            #print("Add Status: " + str(add_req.status_code))
+            pass
+        elif len(data['placeActionLinks']) > 0:
+            for link in data['placeActionLinks']:
+                placeActionLinks_name = link['name']
+                #print(placeActionLinks_name)
+                delete_req = requests.delete("https://mybusinessplaceactions.googleapis.com/v1/" + placeActionLinks_name, headers=headers)
+                #print("https://mybusinessplaceactions.googleapis.com/v1/" + placeActionLinks_name)
+                print("Delete Status: " + str(delete_req.status_code))
 
 
 if google_file is not None:
     results = prepGoogleEraser(google_file)
-    st.write(results)
+    st.write(results[0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
