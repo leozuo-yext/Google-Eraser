@@ -54,6 +54,10 @@ def deleteOperation(prep):
     for row in prep:
         r = requests.patch(row["url"],headers=headers, data = payload)
         print("Delete Status: " + str(r.status_code))
+        if r.status_code == 401:
+            st.write("Expired Token")
+            sys.exit("unauthenticated")
+
 
 if google_file is not None:
     results = prepGoogleEraser(google_file)
@@ -64,8 +68,9 @@ if google_file is not None:
     agreement_checkbox = st.checkbox('I agree')
     if agreement_checkbox:
         run_script = st.button('Run the script')
-        if run_script:
-            deleteOperation(results)
+    if run_script:
+        deleteOperation(results)
+
 
 
 
