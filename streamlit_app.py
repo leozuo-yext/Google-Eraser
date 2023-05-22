@@ -22,7 +22,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 ### Please enter the updateMasks, seperated by commas
 """
-params_str = '?updateMask=' + st.text_input('Google Update Masks')
+params_str = '?updateMask=' + str(st.text_input('Google Update Masks'))
 
 
 """
@@ -43,7 +43,7 @@ def prepGoogleEraser(file):
     for row, r in inputCSV.iterrows():
         info = {}
         info["location"] = r["Yext ID"]
-        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % r["GBP Location ID"][1:] , params_str
+        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (r["GBP Location ID"][1:] , params_str)
         prep.append(info)
     return prep
 
