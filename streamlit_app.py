@@ -56,7 +56,7 @@ def deleteOperation(prep):
     for count, row in enumerate(prep):
         r = requests.patch(row["url"], headers=headers, data=payload)
         print("Delete Status: " + str(r.status_code))
-        if size % remainder == reminder - 1:
+        if size % remainder == remainder - 1:
             st.write("{0:.0%}".format(count / size) + " completed")
         if r.status_code == 400:
             st.write("Bad Request")
