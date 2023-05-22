@@ -52,17 +52,19 @@ def prepGoogleEraser(file):
 
 
 def deleteOperation(prep):
-    my_bar = st.progress(0, text= "Operation in progress. Please wait")
+    my_bar = st.progress(0, text= "Operation in progress. Please wait...")
     payload = "{}"
     size = len(prep)
-    remainder = int(size / 100)
+    pieces = int(size / 100)
+    per_done = 0
     for count, row in enumerate(prep):
         r = requests.patch(row["url"], headers=headers, data=payload)
         #print("Delete Status: " + str(r.status_code))
         #st.write(str(count) + " " + str(size) + " " + str(count % remainder))
         #st.write(r.status_code)
-        if count % remainder == remainder - 1:
-            my_bar.progress(percent_complete + 1, text="Operation in progress. Please wait")
+        if count % pieces == pieces - 1:
+            per_done += 1
+            my_bar.progress(per_done, text="Operation in progress. Please wait...")
             st.write("{0:.000%}".format(count / size) + " completed")
         if r.status_code == 400:
             st.write("Bad Request")
