@@ -50,7 +50,7 @@ headers = {"Authorization" : "Bearer " + token}
 google_file = st.file_uploader('Google Prep File Upload', type = 'csv')
 
 
-
+   
 def prepGoogleEraser(file):
     prep = []
     inputCSV = pd.read_csv(file, encoding = 'utf-8')
@@ -84,7 +84,7 @@ def deleteOperation(prep):
 
 if google_file is not None:
     results = prepGoogleEraser(google_file)
-    st.write("Removing Contents for " + results[0]['url'] + " using payload " + payload)
+    st.write("Removing Contents for " + results[0]['url'])
 
 
 
