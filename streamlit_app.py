@@ -58,18 +58,15 @@ def prepGoogleEraser(file):
     for row, r in inputCSV.iterrows():
         info = {}
         info["location"] = r["Yext ID"]
-        info["url"] = "https://mybusinessplaceactions.googleapis.com/v1/locations/%s/placeActionLinks" % r["GBP Location ID"][1:] 
-        try:
-            info["payload"] = r["payload"]
-        except:
-            pass
+        info["url"] = "https://mybusinessbusinessinformation.googleapis.com/v1/locations/%s?%s" % (r["GBP Location ID"][1:],params_str)
         prep.append(info)
     return prep
 
 def deleteOperation(prep):
+    payload = "{}"
     for row in prep:
-        r = requests.get(row["url"],headers=headers)
-        print("GET Status: " + str(r.status_code))
+        r = requests.patch(row["url"],headers=headers, payload)
+        print("Delete Status: " + str(r.status_code))
         data = json.loads(r.content)
         #print(data['placeActionLinks'][0]["createTime"])
         if len(data) == 0:
@@ -87,7 +84,7 @@ def deleteOperation(prep):
 
 if google_file is not None:
     results = prepGoogleEraser(google_file)
-    st.write(results[0])
+    st.write("Removing Contents for " + results[0]['url'] + " using payload " + payload)
 
 
 
