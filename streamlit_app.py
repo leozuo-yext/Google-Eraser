@@ -54,6 +54,7 @@ def deleteOperation(prep):
         print("Delete Status: " + str(r.status_code))
         if r.status_code == 401:
             st.write("Expired Token")
+            st.write("Last Yext Location: " + str(row["Yext ID"]))
             sys.exit("unauthenticated")
 
 
