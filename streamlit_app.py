@@ -35,6 +35,7 @@ headers = {"Authorization" : "Bearer " + token}
 ### Please Upload the Google Entities
 """
 google_file = st.file_uploader('Google Prep File Upload', type = 'csv')
+
    
 def prepGoogleEraser(file):
     prep = []
@@ -56,6 +57,7 @@ def deleteOperation(prep):
             st.write("Expired Token")
             st.write("Last Yext Location: " + str(row["Yext ID"]))
             sys.exit("unauthenticated")
+            st.stop()
 
 
 if google_file is not None and token != "":
