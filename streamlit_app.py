@@ -56,7 +56,7 @@ def deleteOperation(prep):
         print("Delete Status: " + str(r.status_code))
         if r.status_code == 400:
             st.write("Bad Request")
-            st.write("Reason: " + r.content)
+            st.write("Reason: " + r.text)
             sys.exit("unauthenticated")
             st.stop()
         if r.status_code == 401:
@@ -79,3 +79,9 @@ if google_file is not None and token != "":
             deleteOperation(results)
 else:
     st.write("Please input a Token!")
+
+
+
+
+
+
