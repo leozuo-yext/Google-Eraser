@@ -80,6 +80,7 @@ if google_file is not None and token != "":
     if agreement_checkbox:
         run_script = st.button('Run the script')
         if run_script:
+            st.write("SCRIPT IS STARTING")
             deleteOperation(results)
 elif token == "":
     st.write("Please input a Token!")
@@ -89,4 +90,4 @@ elif token == "":
 
 
 
-    
+
