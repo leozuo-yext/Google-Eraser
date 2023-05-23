@@ -102,8 +102,8 @@ if google_file is not None and token != "":
             total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
             csvfile = csv.writer(total_responses)
             st.download_button('Download CSV', csvfile, 'text/csv')
-                if st.download_button(...):
-                    st.write('Thanks for downloading!')
+            if st.download_button(...):
+                st.write('Thanks for downloading!')
 elif token == "":
     st.write("Please input a Token!")
 
