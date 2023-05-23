@@ -81,7 +81,7 @@ def deleteOperation(prep,chunksize):
             total_responses.append([Yext_ID, r.status_code, r.text])
         perc_done = round(count/num_chunks * 100)
         my_bar.progress(perc_done, text="Operation in progress. Please wait...")
-        prec_progress.text_input("{:.2%}".format((count + 1)/num_chunks) + " completed")
+        prec_progress.text_input("{:.2%}".format((count)/num_chunks) + " completed")
         #st.write("{:.2%}".format((count + 1)/num_chunks) + " completed")
         time.sleep(1)
     my_bar.progress(100, text="Operation Completed Successfully!!!")
