@@ -103,7 +103,7 @@ if google_file is not None and token != "":
                 writer = csv.writer(csvfile)
                 writer.writerows(total_responses)
             with open('output.csv') as csvfile:
-                download = st.download_button('Download CSV', csvfile, 'text/csv')
+                download = st.download_button('Download Report CSV', csvfile, file_name='googleEraseReport.csv','text/csv')
             if download:
                 st.write('Thanks for downloading!')
 elif token == "":
