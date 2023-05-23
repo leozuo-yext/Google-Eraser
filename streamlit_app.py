@@ -97,13 +97,13 @@ if google_file is not None and token != "":
         if run_script:
             st.write("SCRIPT IS STARTING")
             total_responses = deleteOperation(prepFile,100)
-    total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
-    with open('output.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerows(total_responses)
-        st.download_button('Download Response Report CSV', csvfile)
-        if st.download_button(...):
-            st.write('Thanks for downloading!')
+            total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
+            with open('output.csv', 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(total_responses)
+                st.download_button('Download Response Report CSV', csvfile)
+                if st.download_button(...):
+                    st.write('Thanks for downloading!')
 elif token == "":
     st.write("Please input a Token!")
 
