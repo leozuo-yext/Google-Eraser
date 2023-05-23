@@ -100,8 +100,11 @@ if google_file is not None and token != "":
             st.write("SCRIPT IS STARTING")
             total_responses = deleteOperation(prepFile,100)
             total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
-            csvfile = csv.writer(total_responses)
-            st.download_button('Download CSV', csvfile, 'text/csv')
+            with open('output.csv', 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(total_responses)
+            with open('output.csv') as csvfile:
+                st.download_button('Download CSV', csvfile, 'text/csv')
             if st.download_button(...):
                 st.write('Thanks for downloading!')
 elif token == "":
