@@ -22,7 +22,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 ### Please enter the updateMasks, seperated by commas
 """
-params_str = '?readMask=' + str(st.text_input('Google Update Masks'))
+params_str = '?updateMask=' + str(st.text_input('Google Update Masks'))
 
 
 """
@@ -50,7 +50,7 @@ def prepGoogleEraser(file):
 
 
 def http_request(prep_chunks):
-    r =  requests.get(prep_chunks['url'], headers = headers)
+    r =  requests.patch(prep_chunks['url'], headers = headers, payload = payload)
     return prep_chunks['Yext ID'],r
 
 def deleteOperation(prep,chunksize):
