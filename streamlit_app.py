@@ -5,7 +5,7 @@ import csv
 import sys
 import time
 import json
-
+from concurrent.futures import ThreadPoolExecutor
 
 """
 # Welcome to Streamlit!
@@ -19,12 +19,10 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 
-
-
 """
 ### Please enter the updateMasks, seperated by commas
 """
-params_str = '?updateMask=' + str(st.text_input('Google Update Masks'))
+params_str = '?readMask=' + str(st.text_input('Google Update Masks'))
 
 
 """
@@ -51,45 +49,53 @@ def prepGoogleEraser(file):
     return prep
 
 
-def deleteOperation(prep):
+def http_request(prep_chunks):
+    r =  requests.get(prep_chunks['url'], headers = headers)
+    return prep_chunks['Yext ID'],r
+
+def deleteOperation(prep,chunksize):
     my_bar = st.progress(0, text= "Operation in progress. Please wait...")
     payload = "{}"
-    size = len(prep)
-    pieces = int(size / 100)
+    chunks = [prep[x:x+int(chunksize)] for x in range(0, len(data), chunksize)]
+    num_chunks = len(chunks)
+    total_responses = []
     perc_done = 0
-    for count, row in enumerate(prep):
-        r = requests.patch(row["url"], headers=headers, data=payload)
-        #print("Delete Status: " + str(r.status_code))
-        #st.write(str(count) + " " + str(size) + " " + str(count % remainder))
-        #st.write(r.status_code)
-        if count % pieces == pieces - 1:
-            perc_done += 1
-            my_bar.progress(perc_done, text="Operation in progress. Please wait...")
-            st.write("{0:.000%}".format(count / size) + " completed")
-        if r.status_code == 400:
-            st.write("Bad Request")
-            st.write("Reason: " + r.text)
-            sys.exit("unauthenticated")
-            st.stop()
-        if r.status_code == 401:
-            st.write("Expired Token")
-            st.write("Last Yext Location: " + str(row["Yext ID"]))
-            sys.exit("unauthenticated")
-            st.stop()
-
+    for count, prep_chunks in enumerate(chunks):
+        with ThreadPoolExecutor() as pool:
+            response_list = list(pool.map(http_request,prep_chunks))
+        for response_row in response_list:
+            r = response_row[1]
+            Yext_ID = response_row[0]
+            if r.status_code == 400:
+                st.write("Bad Request")
+                st.write("Last Yext Location: " + str(Yext_ID))
+                st.write("Reason: " + r.text)
+                sys.exit("Bad Request")
+                st.stop()
+            if r.status_code == 401:
+                st.write("Expired Token")
+                st.write("Last Yext Location: " + str(Yext_ID))
+                sys.exit("unauthenticated")
+                st.stop()
+            total_responses.append([Yext_ID, r.status_code, r.text])
+        perc_done = round(count/num_chunks * 100)
+        my_bar.progress(perc_done, text="Operation in progress. Please wait...")
+        st.write("{:.2%}".format(count/num_chunks) + " completed")
+        st.write(total_responses)
+        time.sleep(1)
 
 if google_file is not None and token != "":
-    results = prepGoogleEraser(google_file)
+    prepFile = prepGoogleEraser(google_file)
     st.write("Example Call")
-    st.write("Removing Contents for " + results[0]['url'])
-    st.write('Should I run the script?')
+    st.write("Removing Contents for " + prepFile[0]['url'])
+    st.write('Does this example call look right?')
     st.write('You are hereby claiming full responsbility of the outcome of the script, please select I agree to continue')
     agreement_checkbox = st.checkbox('I agree')
     if agreement_checkbox:
         run_script = st.button('Run the script')
         if run_script:
             st.write("SCRIPT IS STARTING")
-            deleteOperation(results)
+            deleteOperation(prepFile,100)
 elif token == "":
     st.write("Please input a Token!")
 
