@@ -56,7 +56,7 @@ def http_request(prep_chunks):
 def deleteOperation(prep,chunksize):
     my_bar = st.progress(0, text= "Operation in progress. Please wait...")
     payload = "{}"
-    chunks = [prep[x:x+int(chunksize)] for x in range(0, len(data), chunksize)]
+    chunks = [prep[x:x+int(chunksize)] for x in range(0, len(prep), chunksize)]
     num_chunks = len(chunks)
     total_responses = []
     perc_done = 0
