@@ -81,9 +81,10 @@ def deleteOperation(prep,chunksize):
         perc_done = round(count/num_chunks * 100)
         my_bar.progress(perc_done, text="Operation in progress. Please wait...")
         st.write("{:.2%}".format(count/num_chunks) + " completed")
-        st.write(total_responses)
+        #st.write(total_responses)
         time.sleep(1)
-
+    my_bar.progress(100, text="Operation Completed Successfully!!!")
+    return total_responses
 if google_file is not None and token != "":
     prepFile = prepGoogleEraser(google_file)
     st.write("Example Call")
@@ -95,7 +96,14 @@ if google_file is not None and token != "":
         run_script = st.button('Run the script')
         if run_script:
             st.write("SCRIPT IS STARTING")
-            deleteOperation(prepFile,100)
+            total_responses = deleteOperation(prepFile,100)
+    total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
+    with open('output.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(total_responses)
+        st.download_button('Download Response Report CSV', csvfile)
+        if st.download_button(...):
+            st.write('Thanks for downloading!')
 elif token == "":
     st.write("Please input a Token!")
 
