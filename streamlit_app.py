@@ -50,7 +50,7 @@ def prepGoogleEraser(file):
 
 
 def http_request(prep_chunks):
-    r =  requests.patch(prep_chunks['url'], headers = headers, data = payload)
+    r =  requests.patch(prep_chunks['url'],headers=headers,data=payload)
     return prep_chunks['Yext ID'],r
 
 def deleteOperation(prep,chunksize):
