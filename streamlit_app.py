@@ -55,7 +55,7 @@ def http_request(prep_chunks):
 
 def deleteOperation(prep,chunksize):
     my_bar = st.progress(0, text= "Operation in progress. Please wait...")
-    prec_progress = st.text_input("{:.2%}".format(0) + " completed")
+    prec_progress = st.text("{:.2%}".format(0) + " completed")
     payload = "{}"
     chunks = [prep[x:x+int(chunksize)] for x in range(0, len(prep), chunksize)]
     num_chunks = len(chunks)
@@ -98,7 +98,7 @@ if google_file is not None and token != "":
         if run_script:
             st.write("SCRIPT IS STARTING")
             total_responses = deleteOperation(prepFile,100)
-            total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
+            total_responses.insert(0,['Yext ID','Status Code','Response']) 
             with open('output.csv', 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerows(total_responses)
