@@ -84,6 +84,7 @@ def deleteOperation(prep,chunksize):
         prec_progress.text_input("{:.2%}".format((count)/num_chunks) + " completed")
         #st.write("{:.2%}".format((count + 1)/num_chunks) + " completed")
         time.sleep(1)
+    prec_progress.text_input("{:.2%}".format(1) + " completed")
     my_bar.progress(100, text="Operation Completed Successfully!!!")
     return total_responses
 if google_file is not None and token != "":
@@ -99,11 +100,8 @@ if google_file is not None and token != "":
             st.write("SCRIPT IS STARTING")
             total_responses = deleteOperation(prepFile,100)
             total_responses.insert(0,['Yext ID','Status Code','Response']) #add headers
-            with open('output.csv', 'w', newline='') as csvfile:
-                writer = csv.writer(csvfile)
-                writer.writerows(total_responses)
-                st.write(total_responses)
-                st.download_button('Download CSV', csvfile, 'text/csv')
+            csvfile = csv.writer(total_responses)
+            st.download_button('Download CSV', csvfile, 'text/csv')
                 if st.download_button(...):
                     st.write('Thanks for downloading!')
 elif token == "":
