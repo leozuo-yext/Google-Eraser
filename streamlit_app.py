@@ -55,6 +55,7 @@ def http_request(prep_chunks):
 
 def deleteOperation(prep,chunksize):
     my_bar = st.progress(0, text= "Operation in progress. Please wait...")
+    prec_progress = st.text("{:.2%}".format(0) + " completed")
     payload = "{}"
     chunks = [prep[x:x+int(chunksize)] for x in range(0, len(prep), chunksize)]
     num_chunks = len(chunks)
@@ -80,8 +81,8 @@ def deleteOperation(prep,chunksize):
             total_responses.append([Yext_ID, r.status_code, r.text])
         perc_done = round(count/num_chunks * 100)
         my_bar.progress(perc_done, text="Operation in progress. Please wait...")
-        st.write("{:.2%}".format(count/num_chunks) + " completed")
-        #st.write(total_responses)
+        prec_progress.text_input("{:.2%}".format((count + 1)/num_chunks) + " completed")
+        #st.write("{:.2%}".format((count + 1)/num_chunks) + " completed")
         time.sleep(1)
     my_bar.progress(100, text="Operation Completed Successfully!!!")
     return total_responses
