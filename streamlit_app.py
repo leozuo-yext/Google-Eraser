@@ -101,6 +101,7 @@ if google_file is not None and token != "":
             with open('output.csv', 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerows(total_responses)
+                st.write(total_responses)
                 st.download_button('Download CSV', csvfile, 'text/csv')
                 if st.download_button(...):
                     st.write('Thanks for downloading!')
