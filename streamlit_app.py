@@ -24,7 +24,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 updateMask = str(st.text_input('Google Update Masks'))
 params_str = '?updateMask=' + updateMask
-
+payload = """{ "%s": [] }""" % updateMask
 """
 ### Please Enter the Google Access Token
 """
@@ -50,13 +50,12 @@ def prepGoogleEraser(file):
 
 
 def http_request(prep_chunks):
-    r =  requests.patch(prep_chunks['url'],headers=headers,data=payload,stream=True)
+    r =  requests.patch(prep_chunks['url'],headers=headers,data=payload)
     return prep_chunks['Yext ID'],r
 
 def deleteOperation(prep,chunksize):
     my_bar = st.progress(0, text= "Operation in progress. Please wait...")
     prec_progress = st.text("{:.2%}".format(0) + " completed")
-    payload = """{ "%s": [] }""" % updateMask
     chunks = [prep[x:x+int(chunksize)] for x in range(0, len(prep), chunksize)]
     num_chunks = len(chunks)
     total_responses = []
